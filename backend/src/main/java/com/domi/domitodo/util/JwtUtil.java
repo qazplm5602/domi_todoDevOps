@@ -39,8 +39,8 @@ public class JwtUtil {
         int expireRefresh = 1000 * 60 * 60 * 12;
 
         return Jwts.builder()
-                .claim("username", name)
-                .subject(id)
+                .id(id)
+                .subject(name)
                 .issuer("domi-todo")
                 .issuedAt(new Date(now))
                 .expiration(new Date(now + (refresh ? expireRefresh : expireAccess)))
