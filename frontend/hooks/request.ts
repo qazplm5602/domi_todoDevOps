@@ -29,9 +29,6 @@ export const request = async function<T>(uri: string, option?: RequestInit, useU
         });
     }
 
-    console.log(option);
-
-
     const result = await fetch(`${process.env.API_URL}${uri}`, option);
     let data: T;
 

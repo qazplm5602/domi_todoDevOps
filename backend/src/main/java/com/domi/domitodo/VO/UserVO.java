@@ -2,7 +2,9 @@ package com.domi.domitodo.VO;
 
 import com.domi.domitodo.entity.User;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 public class UserVO {
     private int id;
     private String name;
