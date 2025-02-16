@@ -1,6 +1,7 @@
 package com.domi.domitodo.config;
 
 import com.domi.domitodo.filter.JwtAuthenticationFilter;
+import com.domi.domitodo.service.UserService;
 import com.domi.domitodo.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Configuration
 public class SecurityConfig {
     final JwtUtil jwtUtil;
+    final UserService userService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -28,7 +30,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable); // csrf 비활
 
-        http.addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthenticationFilter(jwtUtil, userService), UsernamePasswordAuthenticationFilter.class);
 
         // 세션 id 사용 안함
         http.sessionManagement(v ->

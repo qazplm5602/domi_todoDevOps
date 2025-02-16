@@ -1,5 +1,6 @@
 package com.domi.domitodo.VO;
 
+import com.domi.domitodo.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,6 +8,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
+    private final User user;
+
+    public CustomUserDetails(User user) {
+        this.user = user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new GrantedAuthority() {
@@ -19,12 +26,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return "dom-i";
+        return Integer.toString(user.getId());
     }
 
     @Override
