@@ -1,9 +1,7 @@
 package com.domi.domitodo.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.domi.domitodo.exception.TokenException;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,11 +23,19 @@ public class JwtUtil {
     }
 
     public Claims getTokenClaims(String token) {
-        return Jwts.parser()
-                .verifyWith(signKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        Claims claims;
+
+        try {
+            claims = Jwts.parser()
+                    .verifyWith(signKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        } catch (ExpiredJwtException e) {
+            throw new TokenException(TokenException.Type.EXPIRE_TOKEN);
+        }
+
+        return claims;
     }
 
     public String createToken(String id, String name, boolean refresh) {
@@ -44,6 +50,7 @@ public class JwtUtil {
                 .issuer("domi-todo")
                 .issuedAt(new Date(now))
                 .expiration(new Date(now + (refresh ? expireRefresh : expireAccess)))
+                .claim("refresh", refresh)
                 .signWith(signKey, Jwts.SIG.HS256)
                 .compact();
     }

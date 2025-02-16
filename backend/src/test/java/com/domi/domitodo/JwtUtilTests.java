@@ -1,5 +1,6 @@
 package com.domi.domitodo;
 
+import com.domi.domitodo.exception.TokenException;
 import com.domi.domitodo.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -31,5 +33,12 @@ public class JwtUtilTests {
         Claims claims = jwtUtil.getTokenClaims(accessToken);
         assertNotNull(claims);
         assertEquals("domi", claims.getId());
+    }
+
+    @Test
+    @DisplayName("Claim 오류 체크")
+    void parseClaim2() {
+        String token = "eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3Mzk2OTM2MzgsImV4cCI6MTUzOTY5NTQzOH0.N-mQrDxHGHBad-OOBFJa8EtsqLLxFF_Yx_QiskiUCMlV6chHj1qlFYRH2lZ9DnUSYH915StCGJa6AdIJkGjI4w";
+        assertThrows(TokenException.class, () -> jwtUtil.getTokenClaims(token));
     }
 }
