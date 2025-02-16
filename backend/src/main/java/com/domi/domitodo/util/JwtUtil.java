@@ -1,5 +1,6 @@
 package com.domi.domitodo.util;
 
+import com.domi.domitodo.VO.UserTokenVO;
 import com.domi.domitodo.exception.TokenException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -53,5 +54,12 @@ public class JwtUtil {
                 .claim("refresh", refresh)
                 .signWith(signKey, Jwts.SIG.HS256)
                 .compact();
+    }
+
+    public UserTokenVO parseToken(String token) {
+        Claims claims = getTokenClaims(token);
+        boolean isRefresh = (boolean)claims.get("refresh");
+
+        return new UserTokenVO(claims.getId(), claims.getSubject(), isRefresh);
     }
 }

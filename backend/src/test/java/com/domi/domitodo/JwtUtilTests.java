@@ -1,5 +1,6 @@
 package com.domi.domitodo;
 
+import com.domi.domitodo.VO.UserTokenVO;
 import com.domi.domitodo.exception.TokenException;
 import com.domi.domitodo.util.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -9,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -40,5 +40,17 @@ public class JwtUtilTests {
     void parseClaim2() {
         String token = "eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3Mzk2OTM2MzgsImV4cCI6MTUzOTY5NTQzOH0.N-mQrDxHGHBad-OOBFJa8EtsqLLxFF_Yx_QiskiUCMlV6chHj1qlFYRH2lZ9DnUSYH915StCGJa6AdIJkGjI4w";
         assertThrows(TokenException.class, () -> jwtUtil.getTokenClaims(token));
+    }
+
+    @Test
+    @DisplayName("토큰 파싱")
+    void parseToken() {
+        String accessToken = jwtUtil.createToken("domi", "domidami", false);
+        System.out.println(accessToken);
+
+        UserTokenVO result = jwtUtil.parseToken(accessToken);
+        assertEquals("domi", result.getUserId());
+        assertEquals("domidami", result.getName());
+        assertFalse(result.isRefresh());
     }
 }
