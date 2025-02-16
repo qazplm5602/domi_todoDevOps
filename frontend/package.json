@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx next dev"
+    "dev": "npx next dev",
+    "start": "npx next start",
+    "build": "npx next build"
   },
   "keywords": [],
   "author": "",
