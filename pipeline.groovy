@@ -3,6 +3,9 @@ pipeline {
     tools {
         jdk 'openJDK-21'
     }
+    parameters {
+        string(name: 'JWT_KEY', defaultValue: '', description: '테스트 할때 필요한 jwt키')
+    }
 
     stages {
         stage('git clone') {
@@ -11,10 +14,20 @@ pipeline {
             }
         }
 
+        stage("backend test config") {
+            steps {
+                dir('backend') {
+                    sh "echo -e \"spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1\n spring.datasource.username=sa\n spring.datasource.password=sa\n domi.jwt.secret=${params.JWT_KEY}\" > ./application-test.properties"
+                }
+            }
+        }
+
         stage('backend test') {
             steps {
                 dir('backend') {
-                    sh './gradlew test'
+                    // 권한 없으면 안됨
+                    sh 'chmod +x ./gradlew'
+                    sh './gradlew test -Dspring.config.location=./application-test.properties'
                 }
             }
         }
