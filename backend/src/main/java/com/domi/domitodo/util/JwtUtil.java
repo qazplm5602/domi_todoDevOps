@@ -34,7 +34,7 @@ public class JwtUtil {
                     .getPayload();
         } catch (ExpiredJwtException e) {
             throw new TokenException(TokenException.Type.EXPIRE_TOKEN);
-        } catch (SecurityException e) {
+        } catch (SignatureException | SecurityException e) {
             throw new TokenException(TokenException.Type.WRONG_SIGN);
         }
 
