@@ -54,55 +54,51 @@ pipeline {
 
         stage('backend server apply') {
             steps {
-                dir('backend') {
-                    sshPublisher(
-                        failOnError: true,
-                        publishers: [
-                            sshPublisherDesc(
-                                configName: 'todo-backend',
-                                verbose: true,
-                                transfers: [
-                                    sshTransfer(
-                                        cleanRemote:false,
-                                        sourceFiles: './build/libs/',
-                                        removePrefix: './build/libs',
-                                        remoteDirectory: '/domi',
-                                    ),
-                                    sshTransfer(
-                                        execCommand: 'kill -SIGTERM 1'
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                }
+                sshPublisher(
+                    failOnError: true,
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'todo-backend',
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    cleanRemote:false,
+                                    sourceFiles: 'backend/build/libs/',
+                                    removePrefix: 'backend/build/libs/',
+                                    remoteDirectory: '',
+                                ),
+                                sshTransfer(
+                                    execCommand: 'kill -SIGTERM 1'
+                                )
+                            ]
+                        )
+                    ]
+                )
             }
         }
 
         stage('frontend server apply') {
             steps {
-                dir('frontend') {
-                    sshPublisher(
-                        failOnError: true,
-                        publishers: [
-                            sshPublisherDesc(
-                                configName: 'todo-frontend',
-                                verbose: true,
-                                transfers: [
-                                    sshTransfer(
-                                        cleanRemote:false,
-                                        sourceFiles: '.',
-                                        removePrefix: '',
-                                        remoteDirectory: '/domi',
-                                    ),
-                                    sshTransfer(
-                                        execCommand: 'kill -SIGTERM 1'
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                }
+                sshPublisher(
+                    failOnError: true,
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'todo-frontend',
+                            verbose: true,
+                            transfers: [
+                                sshTransfer(
+                                    cleanRemote:false,
+                                    sourceFiles: 'frontend/',
+                                    removePrefix: 'frontend/',
+                                    remoteDirectory: '',
+                                ),
+                                sshTransfer(
+                                    execCommand: 'kill -SIGTERM 1'
+                                )
+                            ]
+                        )
+                    ]
+                )
             }
         }
     }
