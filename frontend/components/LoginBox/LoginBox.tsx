@@ -11,6 +11,8 @@ export default function LoginBox() {
             <LoginInput icon="✉️" placeholder='이메일' type='email' name='email' />
             <LoginInput icon="🔑" placeholder='비밀번호' type='password' name='password' />
 
+            <div className={`text-danger ${style.err}`}>비밀번호가 일치하지 않습니다.</div>
+
             <Button className={style.btn} type='submit'>로그인</Button>
         </form>
     </ShadowBox>
