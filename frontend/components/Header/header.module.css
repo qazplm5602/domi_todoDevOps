@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px;
+  background-color: gray;
+}
+.main > h1 {
+  margin: 0;
+}
+
+.interaction {
+  display: flex;
+  gap: 0 8px;
+}
+/*# sourceMappingURL=header.module.css.map */
