@@ -1,9 +1,10 @@
 import { Button } from 'react-bootstrap';
 import LoginInput from './Input';
 import style from './loginBox.module.scss';
+import ShadowBox from '../ShadowBox/ShadowBox';
 
 export default function LoginBox() {
-    return <section className={style.box}>
+    return <ShadowBox className={style.box}>
         <h1 className={`h2 ${style.title}`}>로그인</h1>
 
         <form>
@@ -12,5 +13,5 @@ export default function LoginBox() {
 
             <Button className={style.btn} type='submit'>로그인</Button>
         </form>
-    </section>
+    </ShadowBox>
 }
