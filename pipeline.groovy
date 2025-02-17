@@ -14,10 +14,12 @@ pipeline {
             }
         }
 
-        stage("backend test config") {
+        // Dspring.config.location 인수가 안먹어서 강제적으로 변경
+        stage("backend test config create") {
             steps {
-                dir('backend') {
-                    sh "echo -e \"spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1\n spring.datasource.username=sa\n spring.datasource.password=sa\n domi.jwt.secret=${params.JWT_KEY}\" > ./application-test.properties"
+                dir('backend/src/main/resources') {
+                    sh "mv application.properties application.properties.tmp"
+                    sh "echo -e \"spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1\n spring.datasource.username=sa\n spring.datasource.password=sa\n domi.jwt.secret=${params.JWT_KEY}\" > ./application.properties"
                 }
             }
         }
@@ -27,7 +29,17 @@ pipeline {
                 dir('backend') {
                     // 권한 없으면 안됨
                     sh 'chmod +x ./gradlew'
-                    sh './gradlew test -Dspring.config.location=./application-test.properties'
+                    sh './gradlew test'
+                }
+            }
+        }
+
+        // 다시 원본으로 돌림
+        stage("backend live config apply") {
+            steps {
+                dir('backend/src/main/resources') {
+                    sh "rm application.properties"
+                    sh "mv application.properties.tmp application.properties"
                 }
             }
         }
