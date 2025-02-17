@@ -4,7 +4,8 @@ import org.springframework.http.HttpStatus;
 
 public class TokenException extends DomiException {
     public enum Type {
-        EXPIRE_TOKEN(0, "만료된 토큰 입니다.", HttpStatus.BAD_REQUEST),;
+        EXPIRE_TOKEN(0, "만료된 토큰 입니다.", HttpStatus.BAD_REQUEST),
+        WRONG_SIGN(1, "잘못된 서명 입니다.", HttpStatus.FORBIDDEN),;
 
         final int code;
         final String message;
