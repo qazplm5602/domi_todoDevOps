@@ -9,6 +9,15 @@
     & > h1 {
         margin: 0;
     }
+
+    & > .user {
+        display: flex;
+        align-items: center;
+
+        & > .name {
+            color: white;
+        }
+    }
 }
 
 .interaction {

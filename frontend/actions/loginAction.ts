@@ -81,3 +81,11 @@ export async function signUpAction(form: FormData) {
     // 로그인 ㄱㄱ
     await apiTokenHandler(email.toString(), password.toString());
 }
+
+export async function logoutAction() {
+    const cookie = await cookies();
+    cookie.delete("accessToken");
+    cookie.delete("refreshToken");
+
+    redirect("/");
+}
