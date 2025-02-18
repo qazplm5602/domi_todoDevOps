@@ -14,7 +14,7 @@ export const getCurrentUser = async function(): Promise<UserVO | undefined> {
     const accessToken = cookie.has("accessToken");
     if (!accessToken) return;
     
-    const { code, data } = await request<UserVO>("/user/@me");
+    const { code, data } = await request<UserVO>("/user/@me", { cache: 'force-cache' });
     if (code !== 200) {
         return;
     }

@@ -2,6 +2,7 @@ package com.domi.domitodo.filter;
 
 import com.domi.domitodo.VO.CustomUserDetails;
 import com.domi.domitodo.VO.UserTokenVO;
+import com.domi.domitodo.service.AuthUserService;
 import com.domi.domitodo.service.UserService;
 import com.domi.domitodo.util.JwtUtil;
 import jakarta.servlet.FilterChain;
@@ -21,7 +22,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     final JwtUtil jwtUtil;
-    final UserService userService;
+    final AuthUserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

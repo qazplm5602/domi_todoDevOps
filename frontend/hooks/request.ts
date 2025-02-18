@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { cookies } from "next/headers";
 
 export interface ResponseData<T> {
@@ -6,9 +7,21 @@ export interface ResponseData<T> {
     data: T
 }
 
-export const request = async function<T>(uri: string, option?: RequestInit, useUrlCache?: boolean): Promise<ResponseData<T>> {
-    const cookie = await cookies();
-    const accessToken = cookie.get("accessToken");
+export interface ApiRequestInit extends RequestInit {
+    tokenDisable?: boolean
+}
+
+export interface ApiError {
+    code: string,
+    message: string
+}
+
+export const request = async function<T>(uri: string, option?: ApiRequestInit, useUrlCache?: boolean): Promise<ResponseData<T>> {
+    let accessToken: RequestCookie | undefined;
+    if (option?.tokenDisable !== true) {
+        const cookie = await cookies();
+        accessToken = cookie.get("accessToken");
+    }
 
     // 유저 따라 다른 캐싱
     const tags = [];

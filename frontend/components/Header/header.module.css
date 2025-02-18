@@ -8,9 +8,16 @@
 .main > h1 {
   margin: 0;
 }
+.main > .user {
+  display: flex;
+  align-items: center;
+}
+.main > .user > .name {
+  color: white;
+}
 
 .interaction {
   display: flex;
-  gap: 0 8px;
+  gap: 0 10px;
 }
 /*# sourceMappingURL=header.module.css.map */
