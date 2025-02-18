@@ -31,9 +31,9 @@ export async function loginAction(form: FormData) {
 
 export async function apiTokenHandler(email: string, password: string) {
     const { code, data } = await request("/login", { method: "POST", tokenDisable: true, headers: { 'Content-Type': "application/json" }, body: JSON.stringify({email, password}) });
+    console.log(code, data);
+
     if (code !== 200) { // 로그인 실패 (서버가 터졋거나 잘못 입력햇거나 ㅁㄴㅇㄹ)
         throw new LoginError("로그인 오류");
     }
-    
-    console.log(code, data);
 }
