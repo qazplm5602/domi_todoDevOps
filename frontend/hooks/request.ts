@@ -18,7 +18,7 @@ export interface ApiError {
 
 export const request = async function<T>(uri: string, option?: ApiRequestInit, useUrlCache?: boolean): Promise<ResponseData<T>> {
     let accessToken: RequestCookie | undefined;
-    if (option?.tokenDisable === true) {
+    if (option?.tokenDisable !== true) {
         const cookie = await cookies();
         accessToken = cookie.get("accessToken");
     }
