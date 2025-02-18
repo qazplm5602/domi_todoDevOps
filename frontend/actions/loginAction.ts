@@ -51,3 +51,33 @@ export async function apiTokenHandler(email: string, password: string) {
     // 끗
     redirect("/");
 }
+
+export async function signUpAction(form: FormData) {
+    const email = form.get("email");
+    const password = form.get("password");
+    const username = form.get("username");
+
+    if (email === '' || password === '' || username === '')
+        return "누락된 내용이 있습니다.";
+
+    if (password.toString().length < 8)
+        return "비밀번호는 8자리 이상이여야 합니다.";
+
+    const { code, data } = await request<any>("/register", {
+        method: "POST",
+        body: JSON.stringify({ email, password, username }),
+        headers: { "Content-Type": "application/json" }
+    });
+
+    if (code !== 200) {
+        if (data?.code !== undefined) {
+            const response = data as ApiError;
+            return response.message;
+        }
+
+        return "API 서버 오류";
+    }
+
+    // 로그인 ㄱㄱ
+    await apiTokenHandler(email.toString(), password.toString());
+}
