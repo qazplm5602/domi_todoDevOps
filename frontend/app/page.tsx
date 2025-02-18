@@ -1,5 +1,5 @@
-import NowEmptyBox from "./nowSection/NowEmptyBox";
-import NowTodoSection from "./nowSection/NowTodoSection";
+import NowEmptyBox from "../components/nowSection/NowEmptyBox";
+import NowTodoSection from "../components/nowSection/NowTodoSection";
 
 export default function Page() {
     return <main className="container-lg">
