@@ -1,6 +1,7 @@
 package com.domi.domitodo.service;
 
 import com.domi.domitodo.DTO.LoginDTO;
+import com.domi.domitodo.DTO.RegisterFormDTO;
 import com.domi.domitodo.VO.CustomUserDetails;
 import com.domi.domitodo.entity.User;
 import com.domi.domitodo.exception.DomiException;
@@ -36,6 +37,18 @@ public class UserService {
             throw exception;
 
         return user;
+    }
+
+    public void signUpUser(RegisterFormDTO form) {
+        if (userRepository.findByEmail(form.getEmail()).isPresent())
+            throw new UserException(UserException.Type.EXIST_EMAIL);
+
+        User newUser = new User();
+        newUser.setEmail(form.getEmail());
+        newUser.setName(form.getUsername());
+        newUser.setPassword(passwordEncoder.encode(form.getPassword()));
+
+        userRepository.save(newUser); // db에 넣긱ㄱ
     }
 
     public User getUserById(int id) {
