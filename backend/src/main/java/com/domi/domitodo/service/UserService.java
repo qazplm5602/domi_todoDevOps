@@ -22,12 +22,6 @@ public class UserService {
     final UserRepository userRepository;
     final PasswordEncoder passwordEncoder;
 
-    public Authentication getUserAuthenticationByEmail(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UserException(UserException.Type.NOT_FOUND_USER));
-        CustomUserDetails customUserDetails = new CustomUserDetails(user);
-
-        return new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
-    }
 
     public User getUserByLoginForm(LoginDTO form) {
         DomiException exception = new UserException(UserException.Type.WRONG_LOGIN_FIELD);

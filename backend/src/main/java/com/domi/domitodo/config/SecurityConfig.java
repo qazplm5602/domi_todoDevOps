@@ -1,6 +1,7 @@
 package com.domi.domitodo.config;
 
 import com.domi.domitodo.filter.JwtAuthenticationFilter;
+import com.domi.domitodo.service.AuthUserService;
 import com.domi.domitodo.service.UserService;
 import com.domi.domitodo.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Configuration
 public class SecurityConfig {
     final JwtUtil jwtUtil;
-    final UserService userService;
+    final AuthUserService userService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
