@@ -19,3 +19,11 @@
         gap: 0 6px;
     }
 }
+
+.desc {
+    margin-top: 30px;
+    
+    & > pre {
+        font-family: inherit;
+    }
+}
