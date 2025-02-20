@@ -1,0 +1,27 @@
+.box {
+    border: 1px solid rgb(233, 233, 233);
+    padding: 8px 13px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    border-radius: 3px;
+    margin-bottom: 5px;
+
+    cursor: pointer;
+
+    & > h5 {
+        font-size: 15px;
+        margin: 0;
+    }
+
+    & > .date {
+        font-size: 13px;
+        color: gray;
+    }
+}
+
+.link {
+    text-decoration: none;
+}

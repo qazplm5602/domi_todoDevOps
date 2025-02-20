@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     final UserService userService;
 
-    @GetMapping("/test")
-    User getLoginUserId() {
-        User user = userService.getCurrentUser();
-        return user;
-    }
+//    @GetMapping("/test")
+//    User getLoginUserId() {
+//        User user = userService.getCurrentUser();
+//        return user;
+//    }
 }

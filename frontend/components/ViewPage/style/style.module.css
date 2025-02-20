@@ -1,0 +1,24 @@
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.head > .detail > h3 {
+  margin: 0;
+}
+.head > .detail > .sub {
+  font-size: 14px;
+}
+.head > .interaction {
+  display: flex;
+  gap: 0 6px;
+}
+
+.desc {
+  margin-top: 30px;
+}
+.desc > pre {
+  font-family: inherit;
+}
+/*# sourceMappingURL=style.module.css.map */
