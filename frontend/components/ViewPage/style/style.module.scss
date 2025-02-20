@@ -1,0 +1,21 @@
+.head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+
+    margin-top: 30px;
+
+    & > .detail {
+        & > h3 {
+            margin: 0;
+        }
+        & > .sub {
+            font-size: 14px;
+        }
+    }
+    
+    & > .interaction {
+        display: flex;
+        gap: 0 6px;
+    }
+}

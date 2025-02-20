@@ -1,4 +1,5 @@
 import { Params } from "next/dist/server/request/params"
+import ViewHeader from "../../../components/ViewPage/Head";
 
 type Props = {
     params: Params
@@ -7,6 +8,6 @@ type Props = {
 export default async function Page({ params }: Props) {
     const { id } = await params;
     return <main className="container-lg">
-        <h3>id: {id}</h3>
+        <ViewHeader />
     </main>
 }
