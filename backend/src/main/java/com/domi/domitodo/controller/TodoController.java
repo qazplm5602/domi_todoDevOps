@@ -1,6 +1,7 @@
 package com.domi.domitodo.controller;
 
 import com.domi.domitodo.DTO.TodoFormDTO;
+import com.domi.domitodo.VO.TodoPreviewVO;
 import com.domi.domitodo.VO.TodoVO;
 import com.domi.domitodo.entity.Todo;
 import com.domi.domitodo.entity.User;
@@ -9,6 +10,9 @@ import com.domi.domitodo.service.TodoService;
 import com.domi.domitodo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/todo")
 @RequiredArgsConstructor
@@ -45,5 +49,15 @@ public class TodoController {
     void removeTodo(@PathVariable("id") int id) {
         User user = userService.getCurrentUser();
         todoService.removeTodo(user, id);
+    }
+
+    @GetMapping("/today")
+    List<TodoPreviewVO> getTodayList() {
+        User user = userService.getCurrentUser();
+
+        return todoService.getTodayList(user)
+                .stream()
+                .map(todo -> new TodoPreviewVO(todo.getId(), todo.getTitle(), todo.getStartDate()))
+                .collect(Collectors.toList());
     }
 }

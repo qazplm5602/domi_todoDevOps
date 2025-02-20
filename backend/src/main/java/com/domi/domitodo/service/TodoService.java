@@ -8,7 +8,9 @@ import com.domi.domitodo.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -52,5 +54,14 @@ public class TodoService {
     public void removeTodo(User user, int id) {
         Todo todo = getTodoByIdVerify(id, user);
         todoRepository.delete(todo);
+    }
+
+    public List<Todo> getTodayList(User user) {
+        LocalDate today = LocalDate.now();
+        LocalDateTime startDate = today.atStartOfDay();
+        LocalDateTime endDate = startDate.plusDays(1).minusNanos(1);
+
+
+        return todoRepository.findByUserAndStartDateIsBetweenOrderByStartDateDesc(user, startDate, endDate);
     }
 }

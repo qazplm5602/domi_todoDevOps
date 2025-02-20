@@ -1,3 +1,4 @@
+import { request } from '../../hooks/request';
 import TodoList from '../todoList/TodoList';
 import style from './style/style.module.scss';
 
@@ -8,7 +9,9 @@ type Props = {
     emptyDoc?: React.ReactNode
 }
 
-export default function NowTodoSection({ title, uri, className, emptyDoc }: Props) {
+export default async function NowTodoSection({ title, uri, className, emptyDoc }: Props) {
+    const { code, data } = await request(`/todo${uri}`);
+    
     return <section className={`${style.main} ${className || ''}`}>
         {title}
         <TodoList />
