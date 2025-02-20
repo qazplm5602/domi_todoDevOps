@@ -1,11 +1,17 @@
 import Link from 'next/link';
 import style from './style/style.module.scss';
+import { TodoPreview } from '../TodoForm/declare';
+import { formatDate } from '../../hooks/utils';
 
-export default function TodoBox() {
-    return <Link href="/" className={style.link}>
+type Props = {
+    data: TodoPreview
+}
+
+export default function TodoBox({ data }: Props) {
+    return <Link href={`/view/${data.id}`} className={style.link}>
         <div className={style.box}>
-            <h5 className='text-black'>제목 임니다.</h5>
-            <div className={style.date}>2022-05-18</div>
+            <h5 className='text-black'>{data.title}</h5>
+            <div className={style.date}>{formatDate(new Date(data.startDate))}</div>
         </div>
     </Link>;
 }

@@ -1,8 +1,12 @@
 import TodoBox from "../todoBox/TodoBox";
+import { TodoPreview } from "../TodoForm/declare";
 
-export default function TodoList() {
+type Props = {
+    list: TodoPreview[]
+}
+
+export default function TodoList({ list }: Props) {
     return <article>
-        <TodoBox />
-        <TodoBox />
+        {list.map(v => <TodoBox key={v.id} data={v} />)}
     </article>
 }

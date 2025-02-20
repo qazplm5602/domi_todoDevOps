@@ -4,3 +4,9 @@ export interface TodoData {
     description: string,
     startDate: string
 }
+
+export interface TodoPreview {
+    id: number,
+    title: string,
+    startDate: string
+}
