@@ -1,13 +1,19 @@
 import { ViewInteracts } from './Interacts';
 import style from './style/style.module.scss';
 
-export default function ViewHeader() {
+type Props = {
+    id: number,
+    title: string,
+    date: string
+}
+
+export default function ViewHeader({ id, title, date }: Props) {
     return <section className={style.head}>
         <article className={style.detail}>
-            <h3>할일 제목 ㅁㄴㅇㄹ</h3>
-            <div className={`text-secondary ${style.sub}`}>2020-01-12</div>
+            <h3>{title}</h3>
+            <div className={`text-secondary ${style.sub}`}>{date}</div>
         </article>
 
-        <ViewInteracts />
+        <ViewInteracts id={id} />
     </section>
 }

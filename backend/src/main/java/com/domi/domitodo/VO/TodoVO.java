@@ -18,6 +18,7 @@ public class TodoVO {
         result.id = value.getId();
         result.title = value.getTitle();
         result.description = value.getDescription();
+        result.startDate = value.getStartDate();
 
         return result;
     }

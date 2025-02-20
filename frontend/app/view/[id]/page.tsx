@@ -27,7 +27,7 @@ export default async function Page({ params }: Props) {
     console.log(response);
 
     return <main className="container-lg">
-        <ViewHeader />
-        <ViewDescription />
+        <ViewHeader id={response.id} title={response.title} date={response.startDate} />
+        <ViewDescription value={response.description} />
     </main>
 }
