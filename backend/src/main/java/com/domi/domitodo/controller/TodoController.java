@@ -34,4 +34,10 @@ public class TodoController {
         User user = userService.getCurrentUser();
         return todoService.createTodo(user, form);
     }
+
+    @PostMapping("/{id}")
+    void editTodo(@PathVariable("id") int id, @RequestBody TodoFormDTO form) {
+        User user = userService.getCurrentUser();
+        todoService.editTodo(user, id, form);
+    }
 }

@@ -29,4 +29,17 @@ public class TodoService {
         Todo todo = todoRepository.save(newTodo);
         return todo.getId();
     }
+
+    public void editTodo(User user, int id, TodoFormDTO form) {
+        Todo currentTodo = getTodoById(id);
+
+        if (currentTodo.getUser() != user) // 주인 아닌뎅
+            throw new TodoException(TodoException.Type.NEED_PERMISSION);
+
+        currentTodo.setTitle(form.getTitle());
+        currentTodo.setDescription(form.getDesc());
+        currentTodo.setStartDate(LocalDateTime.parse(form.getDate()));
+
+        todoRepository.save(currentTodo);
+    }
 }
