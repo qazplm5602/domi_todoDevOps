@@ -24,7 +24,6 @@ export default async function Page({ params }: Props) {
     }
 
     const response = data as TodoData;
-    console.log(response);
 
     return <main className="container-lg">
         <ViewHeader id={response.id} title={response.title} date={response.startDate} />

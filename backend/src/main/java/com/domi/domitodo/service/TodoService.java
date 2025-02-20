@@ -19,6 +19,15 @@ public class TodoService {
         return todoRepository.findById(id).orElseThrow(() -> new TodoException(TodoException.Type.NOT_FOUND));
     }
 
+    public Todo getTodoByIdVerify(int id, User user) {
+        Todo currentTodo = getTodoById(id);
+
+        if (currentTodo.getUser() != user) // 주인 아닌뎅
+            throw new TodoException(TodoException.Type.NEED_PERMISSION);
+
+        return currentTodo;
+    }
+
     public int createTodo(User owner, TodoFormDTO form) {
         Todo newTodo = new Todo();
         newTodo.setUser(owner);
@@ -31,15 +40,17 @@ public class TodoService {
     }
 
     public void editTodo(User user, int id, TodoFormDTO form) {
-        Todo currentTodo = getTodoById(id);
-
-        if (currentTodo.getUser() != user) // 주인 아닌뎅
-            throw new TodoException(TodoException.Type.NEED_PERMISSION);
+        Todo currentTodo = getTodoByIdVerify(id, user);
 
         currentTodo.setTitle(form.getTitle());
         currentTodo.setDescription(form.getDesc());
         currentTodo.setStartDate(LocalDateTime.parse(form.getDate()));
 
         todoRepository.save(currentTodo);
+    }
+
+    public void removeTodo(User user, int id) {
+        Todo todo = getTodoByIdVerify(id, user);
+        todoRepository.delete(todo);
     }
 }

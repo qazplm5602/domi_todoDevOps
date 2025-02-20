@@ -40,4 +40,10 @@ public class TodoController {
         User user = userService.getCurrentUser();
         todoService.editTodo(user, id, form);
     }
+
+    @DeleteMapping("/{id}")
+    void removeTodo(@PathVariable("id") int id) {
+        User user = userService.getCurrentUser();
+        todoService.removeTodo(user, id);
+    }
 }
