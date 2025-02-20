@@ -17,3 +17,11 @@ export async function creatOrEditAction(form: FormData, id?: number) {
     const reId = id !== undefined ? id : data as number;
     redirect(`/view/${reId}`);
 }
+
+export async function deleteAction(id: number) {
+    const { code } = await request(`/todo/${id}`, { method: "DELETE" });
+    if (code !== 200)
+        throw new Error("삭제 실패");
+
+    redirect("/");
+}
