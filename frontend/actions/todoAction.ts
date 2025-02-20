@@ -10,7 +10,7 @@ export async function creatOrEditAction(form: FormData, id?: number) {
         desc: form.get("desc"),
     }
 
-    const { code, data } = await request(`/todo/`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const { code, data } = await request(`/todo/${id || ''}`, { method: (id ? "POST" : "PUT"), headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
     if (code !== 200)
         throw Error("서버 오류");
 
