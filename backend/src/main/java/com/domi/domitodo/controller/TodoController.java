@@ -32,7 +32,6 @@ public class TodoController {
     @PutMapping("/")
     int createTodo(@RequestBody TodoFormDTO form) {
         User user = userService.getCurrentUser();
-        System.out.println(form);
         return todoService.createTodo(user, form);
     }
 }

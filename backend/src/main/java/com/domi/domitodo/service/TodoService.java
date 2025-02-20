@@ -8,6 +8,8 @@ import com.domi.domitodo.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Service
 public class TodoService {
@@ -22,6 +24,7 @@ public class TodoService {
         newTodo.setUser(owner);
         newTodo.setTitle(form.getTitle());
         newTodo.setDescription(form.getDesc());
+        newTodo.setStartDate(LocalDateTime.parse(form.getDate()));
 
         Todo todo = todoRepository.save(newTodo);
         return todo.getId();
