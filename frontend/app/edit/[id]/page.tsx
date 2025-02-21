@@ -3,6 +3,19 @@ import { ApiError, request } from "../../../hooks/request";
 import { notFound, redirect } from "next/navigation";
 import { TodoData } from "../../../components/TodoForm/declare";
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const { code, data } = await request<TodoData>(`/todo/${id}`);
+
+    let title = '';
+    if (code === 200)
+        title = data.title + ' ';
+    
+    return {
+        title: `${title}수정`
+    }
+}
+
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const { code, data } = await request(`/todo/${id}`);

@@ -2,6 +2,11 @@ import { Suspense } from "react";
 import NowEmptyBox from "../../components/nowSection/NowEmptyBox";
 import NowTodoSection from "../../components/nowSection/NowTodoSection";
 import { getCurrentUser } from "../../hooks/loginUser";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: 'Home'
+}
 
 export default async function Page() {
     const user = await getCurrentUser();
