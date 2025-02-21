@@ -18,13 +18,13 @@ export default async function Page() {
                     <NowTodoSection title={<h2>오늘 할일</h2>} uri="/today" className="col" emptyDoc={<NowEmptyBox text="오늘은 할일이 없네요."/>} />
                 </Suspense>
                 <Suspense>
-                    <NowTodoSection title={<h2>지난 일</h2>} uri="/" className="col" />
+                    <NowTodoSection title={<h2>지난 일</h2>} uri="/prev" className="col" />
                 </Suspense>
             </div>
         </div>
 
         <Suspense>
-            <NowTodoSection title={<h2>할일 리스트</h2>} uri="/" />
+            <NowTodoSection title={<h2>할일 리스트</h2>} uri="/all" />
         </Suspense>
     </main>;
 }

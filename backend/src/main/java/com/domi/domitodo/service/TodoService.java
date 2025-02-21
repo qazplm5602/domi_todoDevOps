@@ -64,4 +64,13 @@ public class TodoService {
 
         return todoRepository.findByUserAndStartDateIsBetweenOrderByStartDateDesc(user, startDate, endDate);
     }
+
+    public List<Todo> getAllList(User user) {
+        return todoRepository.findByUserOrderByIdDesc(user);
+    }
+
+    public List<Todo> getPrevList(User user) {
+        LocalDate today = LocalDate.now();
+        return todoRepository.findByUserAndStartDateBeforeOrderByStartDateDesc(user, today.atStartOfDay());
+    }
 }
