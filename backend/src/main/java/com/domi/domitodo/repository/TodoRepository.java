@@ -5,10 +5,13 @@ import com.domi.domitodo.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Integer> {
     List<Todo> findByUserAndStartDateIsBetweenOrderByStartDateDesc(User user, LocalDateTime startDateBefore, LocalDateTime startDateAfter);
+    List<Todo> findByUserOrderByIdDesc(User user);
+    List<Todo> findByUserAndStartDateBeforeOrderByStartDateDesc(User user, LocalDateTime date);
 }

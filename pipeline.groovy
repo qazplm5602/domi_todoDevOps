@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
         jdk 'openJDK-21'
+        nodejs 'node-23'
     }
     parameters {
         string(name: 'JWT_KEY', defaultValue: '', description: '테스트 할때 필요한 jwt키')
@@ -48,6 +49,23 @@ pipeline {
             steps {
                 dir('backend') {
                     sh './gradlew build -x test'
+                }
+            }
+        }
+
+        stage('frontend build') {
+            steps {
+                dir('frontend') {
+                    sh 'npm install' // 패키지 설치
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('frontend cleanup') {
+            steps {
+                dir('frontend/.next') {
+                    deleteDir()
                 }
             }
         }

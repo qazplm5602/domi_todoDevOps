@@ -60,4 +60,22 @@ public class TodoController {
                 .map(todo -> new TodoPreviewVO(todo.getId(), todo.getTitle(), todo.getStartDate()))
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/all")
+    List<TodoPreviewVO> getAllList() {
+        User user = userService.getCurrentUser();
+        return todoService.getAllList(user)
+                .stream()
+                .map(todo -> new TodoPreviewVO(todo.getId(), todo.getTitle(), todo.getStartDate()))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/prev")
+    List<TodoPreviewVO> getPrevList() {
+        User user = userService.getCurrentUser();
+        return todoService.getPrevList(user)
+                .stream()
+                .map(todo -> new TodoPreviewVO(todo.getId(), todo.getTitle(), todo.getStartDate()))
+                .collect(Collectors.toList());
+    }
 }

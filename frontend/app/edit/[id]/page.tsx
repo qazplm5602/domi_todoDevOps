@@ -1,10 +1,9 @@
-import { Params } from "next/dist/server/request/params";
 import TodoForm from "../../../components/TodoForm/TodoForm";
 import { ApiError, request } from "../../../hooks/request";
 import { notFound, redirect } from "next/navigation";
 import { TodoData } from "../../../components/TodoForm/declare";
 
-export default async function Page({ params }: { params: Params }) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const { code, data } = await request(`/todo/${id}`);
     if (code !== 200) {
