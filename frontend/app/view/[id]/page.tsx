@@ -1,4 +1,3 @@
-import { Params } from "next/dist/server/request/params"
 import ViewHeader from "../../../components/ViewPage/Head";
 import ViewDescription from "../../../components/ViewPage/Desc";
 import { ApiError, request } from "../../../hooks/request";
@@ -6,7 +5,7 @@ import { TodoData } from "../../../components/TodoForm/declare";
 import { notFound, redirect } from "next/navigation";
 
 type Props = {
-    params: Params
+    params: Promise<{ id: string }>
 }
 
 export default async function Page({ params }: Props) {
