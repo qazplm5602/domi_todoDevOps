@@ -67,6 +67,9 @@ pipeline {
                 dir('frontend/.next') {
                     deleteDir()
                 }
+                dir('frontend/node_modules') {
+                    deleteDir()
+                }
             }
         }
 
